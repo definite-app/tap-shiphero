@@ -1,0 +1,62 @@
+query {
+  shipments (order_id: $order_id){
+    request_id
+    complexity
+    data (first: 50, after: $cursor) {
+    pageInfo {
+                hasNextPage
+                hasPreviousPage
+                startCursor
+                endCursor
+            }
+      edges {
+        node {
+          id
+          legacy_id
+          order_id
+          user_id
+          warehouse_id
+          pending_shipment_id
+          address {
+            name
+            address1
+            address2
+            city
+            state
+            country
+            zip
+            phone
+          }
+          shipped_off_shiphero
+          dropshipment
+          created_date
+          line_items(first: 10) {
+            edges {
+              node {
+                line_item_id
+                quantity
+              }
+            }
+          }
+          shipping_labels {
+            id
+            legacy_id
+            account_id
+            tracking_number
+            carrier
+            shipping_name
+            shipping_method
+            cost
+            profile
+            packing_slip
+            warehouse
+            insurance_amount
+            carrier_account_id
+            source
+            created_date
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,204 @@
+{
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "string"
+        },
+        "legacy_id": {
+            "type": "integer"
+        },
+        "account_id": {
+            "type": "string"
+        },
+        "name": {
+            "type": "string"
+        },
+        "sku": {
+            "type": "string"
+        },
+        "barcode": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "country_of_manufacture": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "dimensions": {
+            "type": [
+                "object",
+                "null"
+            ],
+            "properties": {
+                "height": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "width": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "length": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "weight": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            }
+        },
+        "tariff_code": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "kit": {
+            "type": "boolean"
+        },
+        "kit_build": {
+            "type": "boolean"
+        },
+        "no_air": {
+            "type": "boolean"
+        },
+        "final_sale": {
+            "type": "boolean"
+        },
+        "customs_value": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "customs_description": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "not_owned": {
+            "type": "boolean"
+        },
+        "dropship": {
+            "type": "boolean"
+        },
+        "needs_serial_number": {
+            "type": "boolean"
+        },
+        "thumbnail": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "large_thumbnail": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "created_at": {
+            "type": "string",
+            "format": "date-time"
+        },
+        "updated_at": {
+            "type": "string",
+            "format": "date-time"
+        },
+        "product_note": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "virtual": {
+            "type": "boolean"
+        },
+        "ignore_on_invoice": {
+            "type": "boolean"
+        },
+        "ignore_on_customs": {
+            "type": "boolean"
+        },
+        "active": {
+            "type": "boolean"
+        },
+        "warehouse_products": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "type": "object",
+                "properties": {
+                    "warehouse_id": {
+                        "type": "string"
+                    },
+                    "on_hand": {
+                        "type": "integer"
+                    }
+                }
+            }
+        },
+        "images": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "type": "object",
+                "properties": {
+                    "src": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "tags": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "type": "string"
+            }
+        },
+        "kit_components": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "type": "object",
+                "properties": {
+                    "sku": {
+                        "type": "string"
+                    },
+                    "quantity": {
+                        "type": "integer"
+                    }
+                }
+            }
+        }
+    },
+    "required": [
+        "id",
+        "sku",
+        "created_at",
+        "updated_at"
+    ]
+}

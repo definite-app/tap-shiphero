@@ -1,0 +1,47 @@
+query {
+  purchase_orders {
+    request_id
+    complexity
+    data(first: 50, after: $cursor) {
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+      }
+      edges {
+        node {
+          id
+          legacy_id
+          po_number
+          account_id
+          warehouse_id
+          vendor_id
+          created_at
+          po_date
+          date_closed
+          packing_note
+          fulfillment_status
+          po_note
+          description
+          subtotal
+          discount
+          total_price
+          tax
+          shipping_method
+          shipping_carrier
+          shipping_name
+          shipping_price
+          tracking_number
+          pdf
+          images
+          payment_method
+          payment_due_by
+          payment_note
+          locking
+          locked_by_user_id
+        }
+      }
+    }
+  }
+}

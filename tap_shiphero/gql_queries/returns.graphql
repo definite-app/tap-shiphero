@@ -1,0 +1,76 @@
+query {
+  returns(
+    date_from: $updated_from
+  ) {
+    request_id
+    complexity
+    data(first: 50, after: $cursor) {
+    pageInfo {
+                hasNextPage
+                hasPreviousPage
+                startCursor
+                endCursor
+            }
+      edges {
+        node {
+          id
+          legacy_id
+          account_id
+          order_id
+          partner_id
+          reason
+          status
+          label_type
+          label_cost
+          cost_to_customer
+          shipping_carrier
+          shipping_method
+          display_issue_refund
+          line_items {
+            id
+            legacy_id
+            account_id
+            line_item_id
+            warehouse_id
+            product_id
+            return_id
+            quantity
+            condition
+            is_component
+            type
+            reason
+            created_at
+            updated_at
+            line_item {
+              id
+              legacy_id
+              sku
+              partner_line_item_id
+              quantity
+              price
+              product_name
+              option_title
+              fulfillment_status
+              quantity_pending_fulfillment
+              quantity_shipped
+              warehouse
+              quantity_allocated
+              backorder_quantity
+              custom_options
+              custom_barcode
+              eligible_for_return
+              customs_value
+              warehouse_id
+              locked_to_warehouse_id
+              subtotal
+              barcode
+              created_at
+              updated_at
+            }
+          }
+          created_at
+        }
+      }
+    }
+  }
+}

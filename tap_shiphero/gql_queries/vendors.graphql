@@ -1,0 +1,40 @@
+query {
+  vendors  {
+    request_id
+    complexity
+    data(first: 10, after: $cursor) {
+      pageInfo {
+          hasNextPage
+          hasPreviousPage
+          startCursor
+          endCursor
+      }
+      edges {
+        node {
+          id
+          legacy_id
+          name
+          email
+          account_number
+          account_id
+          address {
+            name
+            address1
+            address2
+            city
+            state
+            country
+            zip
+            phone
+          }
+          currency
+          internal_note
+          default_po_note
+          logo
+          partner_vendor_id
+          created_at
+        }
+      }
+    }
+  }
+}

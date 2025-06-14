@@ -1,0 +1,70 @@
+{
+    "type": "object",
+    "properties": {
+        "id": { "type": "string" },
+        "legacy_id": { "type": ["integer", "null"] },
+        "account_id": { "type": ["string", "null"] },
+        "order_id": { "type": ["string", "null"] },
+        "partner_id": { "type": ["string", "null"] },
+        "reason": { "type": ["string", "null"] },
+        "status": { "type": ["string", "null"] },
+        "label_type": { "type": ["string", "null"] },
+        "label_cost": { "type": ["string", "null"] },
+        "cost_to_customer": { "type": ["string", "null"] },
+        "shipping_carrier": { "type": ["string", "null"] },
+        "shipping_method": { "type": ["string", "null"] },
+        "display_issue_refund": { "type": ["boolean", "null"] },
+        "line_items": {
+            "type": ["array", "null"],
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": { "type": "string" },
+                    "legacy_id": { "type": ["integer", "null"] },
+                    "account_id": { "type": ["string", "null"] },
+                    "line_item_id": { "type": ["string", "null"] },
+                    "warehouse_id": { "type": ["string", "null"] },
+                    "product_id": { "type": ["string", "null"] },
+                    "return_id": { "type": ["string", "null"] },
+                    "quantity": { "type": ["integer", "null"] },
+                    "condition": { "type": ["string", "null"] },
+                    "is_component": { "type": ["boolean", "null"] },
+                    "type": { "type": ["string", "null"] },
+                    "reason": { "type": ["string", "null"] },
+                    "created_at": { "type": ["string", "null"], "format": "date-time" },
+                    "updated_at": { "type": ["string", "null"], "format": "date-time" },
+                    "line_item": {
+                        "type": ["object", "null"],
+                        "properties": {
+                            "id": { "type": ["string", "null"] },
+                            "legacy_id": { "type": ["integer", "null"] },
+                            "sku": { "type": ["string", "null"] },
+                            "partner_line_item_id": { "type": ["string", "null"] },
+                            "quantity": { "type": ["integer", "null"] },
+                            "price": { "type": ["string", "null"] },
+                            "product_name": { "type": ["string", "null"] },
+                            "option_title": { "type": ["string", "null"] },
+                            "fulfillment_status": { "type": ["string", "null"] },
+                            "quantity_pending_fulfillment": { "type": ["integer", "null"] },
+                            "quantity_shipped": { "type": ["integer", "null"] },
+                            "warehouse": { "type": ["string", "null"] },
+                            "quantity_allocated": { "type": ["integer", "null"] },
+                            "backorder_quantity": { "type": ["integer", "null"] },
+                            "custom_options": { "type": ["string", "null"] },
+                            "custom_barcode": { "type": ["string", "null"] },
+                            "eligible_for_return": { "type": ["boolean", "null"] },
+                            "customs_value": { "type": ["string", "null"] },
+                            "warehouse_id": { "type": ["string", "null"] },
+                            "locked_to_warehouse_id": { "type": ["string", "null"] },
+                            "subtotal": { "type": ["string", "null"] },
+                            "barcode": { "type": ["string", "null"] },
+                            "created_at": { "type": ["string", "null"], "format": "date-time" },
+                            "updated_at": { "type": ["string", "null"], "format": "date-time" }
+                        }
+                    }
+                }
+            }
+        },
+        "created_at": { "type": ["string", "null"], "format": "date-time" }
+    }
+} 

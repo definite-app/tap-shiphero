@@ -1,0 +1,70 @@
+{
+    "type": "object",
+    "properties": {
+        "id": { "type": "string" },
+        "legacy_id": { "type": ["integer", "null"] },
+        "order_id": { "type": ["string", "null"] },
+        "user_id": { "type": ["string", "null"] },
+        "warehouse_id": { "type": ["string", "null"] },
+        "pending_shipment_id": { "type": ["string", "null"] },
+        "address": {
+            "type": ["object", "null"],
+            "properties": {
+                "name": { "type": ["string", "null"] },
+                "address1": { "type": ["string", "null"] },
+                "address2": { "type": ["string", "null"] },
+                "city": { "type": ["string", "null"] },
+                "state": { "type": ["string", "null"] },
+                "country": { "type": ["string", "null"] },
+                "zip": { "type": ["string", "null"] },
+                "phone": { "type": ["string", "null"] }
+            }
+        },
+        "shipped_off_shiphero": { "type": ["boolean", "null"] },
+        "dropshipment": { "type": ["boolean", "null"] },
+        "created_date": { "type": ["string", "null"], "format": "date-time" },
+        "line_items": {
+            "type": ["object", "null"],
+            "properties": {
+                "edges": {
+                    "type": ["array", "null"],
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "node": {
+                                "type": ["object", "null"],
+                                "properties": {
+                                    "line_item_id": { "type": ["string", "null"] },
+                                    "quantity": { "type": ["integer", "null"] }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "shipping_labels": {
+            "type": ["array", "null"],
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": { "type": "string" },
+                    "legacy_id": { "type": ["integer", "null"] },
+                    "account_id": { "type": ["string", "null"] },
+                    "tracking_number": { "type": ["string", "null"] },
+                    "carrier": { "type": ["string", "null"] },
+                    "shipping_name": { "type": ["string", "null"] },
+                    "shipping_method": { "type": ["string", "null"] },
+                    "cost": { "type": ["string", "null"] },
+                    "profile": { "type": ["string", "null"] },
+                    "packing_slip": { "type": ["string", "null"] },
+                    "warehouse": { "type": ["string", "null"] },
+                    "insurance_amount": { "type": ["string", "null"] },
+                    "carrier_account_id": { "type": ["string", "null"] },
+                    "source": { "type": ["string", "null"] },
+                    "created_date": { "type": ["string", "null"], "format": "date-time" }
+                }
+            }
+        }
+    }
+} 

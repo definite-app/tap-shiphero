@@ -1,0 +1,151 @@
+{
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "string"
+        },
+        "legacy_id": {
+            "type": [
+                "integer",
+                "null"
+            ]
+        },
+        "order_number": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "partner_order_id": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "shop_name": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "fulfillment_status": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "order_date": {
+            "type": "string",
+            "format": "date-time"
+        },
+        "updated_at": {
+            "type": "string",
+            "format": "date-time"
+        },
+        "total_tax": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "subtotal": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "total_discounts": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "total_price": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "email": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "account_id": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "source": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "line_items": {
+            "type": [
+                "object",
+                "null"
+            ],
+            "properties": {
+                "edges": {
+                    "type": [
+                        "array",
+                        "null"
+                    ],
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "node": {
+                                "type": [
+                                    "object",
+                                    "null"
+                                ],
+                                "properties": {
+                                    "sku": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ]
+                                    },
+                                    "quantity": {
+                                        "type": [
+                                            "integer",
+                                            "null"
+                                        ]
+                                    },
+                                    "quantity_allocated": {
+                                        "type": [
+                                            "integer",
+                                            "null"
+                                        ]
+                                    },
+                                    "quantity_pending_fulfillment": {
+                                        "type": [
+                                            "integer",
+                                            "null"
+                                        ]
+                                    },
+                                    "backorder_quantity": {
+                                        "type": [
+                                            "integer",
+                                            "null"
+                                        ]
+                                    },
+                                    "promotion_discount": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

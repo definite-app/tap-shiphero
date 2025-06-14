@@ -1,0 +1,76 @@
+query {
+    orders (updated_from: $updated_from) {
+        request_id
+        complexity
+        data(first: 50, after: $cursor) {
+            pageInfo {
+                hasNextPage
+                hasPreviousPage
+                startCursor
+                endCursor
+            }
+            edges {
+                node {
+                    id
+                    legacy_id
+                    order_number
+                    partner_order_id
+                    shop_name
+                    fulfillment_status
+                    order_date
+                    updated_at
+                    total_tax
+                    subtotal
+                    total_discounts
+                    total_price
+                    auto_print_return_label
+                    custom_invoice_url
+                    account_id
+                    email
+                    profile
+                    packing_note
+                    required_ship_date
+                    flagged
+                    saturday_delivery
+                    ignore_address_validation_errors
+                    priority_flag
+                    source
+                    third_party_shipper {
+                        zip
+                        account_number
+                        country
+                    }
+                    gift_invoice
+                    order_history {
+                        created_at
+                        information
+                        user_id
+                    }
+                    allow_partial
+                    require_signature
+                    adult_signature_required
+                    alcohol
+                    expected_weight_in_oz
+                    insurance
+                    insurance_amount
+                    currency
+                    has_dry_ice
+                    allocation_priority
+                    allow_split
+                    line_items(first: 10) {
+                        edges {
+                            node {
+                                sku
+                                quantity
+                                quantity_allocated
+                                quantity_pending_fulfillment
+                                backorder_quantity
+                                promotion_discount
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+} 
