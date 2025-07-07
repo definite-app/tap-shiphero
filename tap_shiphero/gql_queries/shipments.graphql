@@ -1,5 +1,5 @@
 query {
-  shipments (order_id: $order_id){
+  shipments (date_from: $date_from, date_to: $date_to){
     request_id
     complexity
     data (first: 50, after: $cursor) {
