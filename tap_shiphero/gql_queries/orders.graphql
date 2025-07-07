@@ -2,7 +2,7 @@ query {
     orders (updated_from: $updated_from) {
         request_id
         complexity
-        data(first: 95, after: $cursor) {
+        data(first: 50, after: $cursor) {
             pageInfo {
                 hasNextPage
                 hasPreviousPage
