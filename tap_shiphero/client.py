@@ -175,7 +175,10 @@ class ShipHeroStream(GraphQLStream):
         # The paginator's has_more() method handles empty responses,
         # so we can focus on parsing valid responses here
         try:
-            yield from resp_json["data"][self.name]["data"]["edges"]
+            # The line_item_pick query is named "picks_per_day" in the response
+            # See: https://developer.shiphero.com/examples/#lineitemspick
+            entity_name = self.name if self.name != "line_item_pick" else "picks_per_day"
+            yield from resp_json["data"][entity_name]["data"]["edges"]
         except (KeyError, TypeError):
             # Check for GraphQL errors and raise exception instead of just logging
             if "errors" in resp_json:
