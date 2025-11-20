@@ -14,6 +14,7 @@ The following is a list of streams that are currently supported:
 | purchase_orders | FULL_TABLE |
 | shipments | INCREMENTAL |
 | returns | INCREMENTAL |
+| line_item_pick | INCREMENTAL |
 
 The tap pulls from ShipHero's GraphQL API. Rate limits are pretty strict, especially for the orders stream, so we limit the number of records pulled on each page and paginate through the results, waiting for rate-limit credits to reset when necessary. Number of records pulled per page for each stream can be found in the `gql_queries` folder. You may need to adjust this depending on your use case.
 
