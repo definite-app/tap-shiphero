@@ -2,16 +2,16 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timedelta
 import decimal
 import json
 import typing as t
+from datetime import datetime, timedelta
 from importlib import resources
 
 import requests  # noqa: TC002
+from singer_sdk.exceptions import RetriableAPIError
 from singer_sdk.pagination import JSONPathPaginator
 from singer_sdk.streams import GraphQLStream
-from singer_sdk.exceptions import RetriableAPIError
 from singer_sdk.tap_base import Tap
 
 if t.TYPE_CHECKING:
@@ -45,7 +45,6 @@ class ShipHeroGraphQLPaginator(JSONPathPaginator):
 
 class ShipHeroRateLimitError(RetriableAPIError):
     """Custom exception for ShipHero rate limiting."""
-    pass
 
 
 class ShipHeroStream(GraphQLStream):
