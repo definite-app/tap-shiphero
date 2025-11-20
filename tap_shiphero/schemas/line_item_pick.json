@@ -1,0 +1,21 @@
+{
+    "type": "object",
+    "properties": {
+        "id": { "type": "string" },
+        "user_id": { "type": ["string", "null"] },
+        "tote_id": { "type": ["string", "null"] },
+        "line_item_id": { "type": ["string", "null"] },
+        "location_id": { "type": ["string", "null"] },
+        "order_id": { "type": ["string", "null"] },
+        "order_number": { "type": ["string", "null"] },
+        "user_first_name": { "type": ["string", "null"] },
+        "user_last_name": { "type": ["string", "null"] },
+        "inventory_bin": { "type": ["string", "null"] },
+        "sku": { "type": ["string", "null"] },
+        "quantity": { "type": ["integer", "null"] },
+        "picked_quantity": { "type": ["integer", "null"] },
+        "pick_type": { "type": ["string", "null"] },
+        "barcode_scanned": { "type": ["string", "null"] },
+        "created_at": { "type": ["string", "null"], "format": "date-time" }
+    }
+} 

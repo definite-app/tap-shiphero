@@ -93,6 +93,7 @@ class TapShipHero(Tap):
             streams.ShipmentsStream(self, access_token=access_token),
             streams.ReturnsStream(self, access_token=access_token),
             streams.PurchaseOrdersStream(self, access_token=access_token),
+            streams.LineItemPicksStream(self, access_token=access_token),
         ]
 
 
