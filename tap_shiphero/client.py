@@ -5,12 +5,13 @@ from __future__ import annotations
 import decimal
 import json
 import typing as t
+from datetime import datetime, timedelta
 from importlib import resources
 
 import requests  # noqa: TC002
+from singer_sdk.exceptions import RetriableAPIError
 from singer_sdk.pagination import JSONPathPaginator
 from singer_sdk.streams import GraphQLStream
-from singer_sdk.exceptions import RetriableAPIError
 from singer_sdk.tap_base import Tap
 
 if t.TYPE_CHECKING:
@@ -44,7 +45,6 @@ class ShipHeroGraphQLPaginator(JSONPathPaginator):
 
 class ShipHeroRateLimitError(RetriableAPIError):
     """Custom exception for ShipHero rate limiting."""
-    pass
 
 
 class ShipHeroStream(GraphQLStream):
@@ -175,7 +175,10 @@ class ShipHeroStream(GraphQLStream):
         # The paginator's has_more() method handles empty responses,
         # so we can focus on parsing valid responses here
         try:
-            yield from resp_json["data"][self.name]["data"]["edges"]
+            # The line_item_pick query is named "picks_per_day" in the response
+            # See: https://developer.shiphero.com/examples/#lineitemspick
+            entity_name = self.name if self.name != "line_item_pick" else "picks_per_day"
+            yield from resp_json["data"][entity_name]["data"]["edges"]
         except (KeyError, TypeError):
             # Check for GraphQL errors and raise exception instead of just logging
             if "errors" in resp_json:
@@ -262,3 +265,53 @@ class ShipHeroStream(GraphQLStream):
             return default_wait
 
         return self.backoff_runtime(value=_backoff_from_shiphero_error)
+
+class ShipHeroDateRangeStream(ShipHeroStream):
+    """ShipHero stream class for GQL endpoints that require date range filtering."""
+
+    def _get_end_date(self) -> str:
+        """Get end date as current date + 1 day in ISO format."""
+        end_date = datetime.now() + timedelta(days=1)
+        return end_date.strftime("%Y-%m-%d")
+
+    def _get_start_date(self) -> str:
+        """Get start date based on replication state."""
+        starting_timestamp = self.get_starting_timestamp(self.context)
+        if starting_timestamp:
+            return starting_timestamp.strftime("%Y-%m-%d")
+
+        start_date = self.config.get("start_date")
+        if start_date:
+            return start_date
+
+        raise ValueError(
+            "No start_date configured and no previous bookmark found. "
+            "Please set 'start_date' in your tap configuration for initial sync."
+        )
+
+    @property
+    def query(self) -> str:
+        """Build GraphQL query with date range filtering."""
+        base_query = self._get_base_query()
+
+        # Handle cursor for pagination
+        cursor = getattr(self, "_current_cursor", None)
+
+        if cursor:
+            # Replace $cursor with actual cursor value
+            query = base_query.replace("$cursor", f'"{cursor}"')
+        else:
+            # For first page, remove the after parameter entirely
+            query = base_query.replace(", after: $cursor", "")
+
+        # Get date range
+        start_date = self._get_start_date()
+        end_date = self._get_end_date()
+
+        # Replace date parameters
+        query = query.replace("$date_from", f'"{start_date}"')
+        query = query.replace("$date_to", f'"{end_date}"')
+
+        self.logger.info(f"Querying shipments from {start_date} to {end_date}")
+
+        return query
