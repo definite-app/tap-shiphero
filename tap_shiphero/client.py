@@ -312,6 +312,6 @@ class ShipHeroDateRangeStream(ShipHeroStream):
         query = query.replace("$date_from", f'"{start_date}"')
         query = query.replace("$date_to", f'"{end_date}"')
 
-        self.logger.info(f"Querying shipments from {start_date} to {end_date}")
+        self.logger.info(f"Querying {self.name} from {start_date} to {end_date}")
 
         return query
