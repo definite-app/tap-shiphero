@@ -25,18 +25,18 @@ GQL_QUERIES_DIR = resources.files("tap_shiphero") / "gql_queries"
 class ShipHeroGraphQLPaginator(JSONPathPaginator):
     """Custom paginator for ShipHero GraphQL cursor-based pagination."""
 
-    def __init__(self, stream_name: str, jsonpath_expr: str | None = None) -> None:
+    def __init__(self, gql_entity_name: str, jsonpath_expr: str | None = None) -> None:
         """Initialize paginator with JSONPath to extract cursor from response."""
         if jsonpath_expr is None:
-            jsonpath_expr = f"$.data.{stream_name}.data.pageInfo.endCursor"
+            jsonpath_expr = f"$.data.{gql_entity_name}.data.pageInfo.endCursor"
         super().__init__(jsonpath_expr)
-        self.stream_name = stream_name
+        self.gql_entity_name = gql_entity_name
 
     def has_more(self, response: requests.Response) -> bool:
         """Check if there are more pages based on hasNextPage."""
         try:
             data = response.json()
-            page_info = data["data"][self.stream_name]["data"]["pageInfo"]
+            page_info = data["data"][self.gql_entity_name]["data"]["pageInfo"]
             return page_info.get("hasNextPage", False)
         except (KeyError, TypeError, json.JSONDecodeError):
             # If we can't find the expected structure, assume no more pages
@@ -57,7 +57,10 @@ class ShipHeroStream(GraphQLStream):
         """Initialize the stream with access token."""
         super().__init__(tap, **kwargs)
         self.access_token = access_token
-
+        # gql_entity_name is the name of the entity in the Shiphero GQL schema
+        # All streams, except for the line_item_pick, it's the same as the stream name
+        # See: https://developer.shiphero.com/examples/#lineitemspick
+        self.gql_entity_name = self.name if self.name != "line_item_pick" else "picks_per_day"
     @property
     def url_base(self) -> str:
         """Return the API URL root, configurable via tap settings."""
@@ -106,7 +109,7 @@ class ShipHeroStream(GraphQLStream):
 
     def get_new_paginator(self) -> ShipHeroGraphQLPaginator:
         """Return a new paginator instance."""
-        return ShipHeroGraphQLPaginator(self.name)
+        return ShipHeroGraphQLPaginator(self.gql_entity_name)
 
     def prepare_request_payload(
         self,
@@ -177,8 +180,7 @@ class ShipHeroStream(GraphQLStream):
         try:
             # The line_item_pick query is named "picks_per_day" in the response
             # See: https://developer.shiphero.com/examples/#lineitemspick
-            entity_name = self.name if self.name != "line_item_pick" else "picks_per_day"
-            yield from resp_json["data"][entity_name]["data"]["edges"]
+            yield from resp_json["data"][self.gql_entity_name]["data"]["edges"]
         except (KeyError, TypeError):
             # Check for GraphQL errors and raise exception instead of just logging
             if "errors" in resp_json:
@@ -312,6 +314,6 @@ class ShipHeroDateRangeStream(ShipHeroStream):
         query = query.replace("$date_from", f'"{start_date}"')
         query = query.replace("$date_to", f'"{end_date}"')
 
-        self.logger.info(f"Querying shipments from {start_date} to {end_date}")
+        self.logger.info(f"Querying {self.name} from {start_date} to {end_date}")
 
         return query
